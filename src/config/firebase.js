@@ -10,7 +10,7 @@ import {
 } from 'firebase/auth';
 import admin from 'firebase-admin';
 
-import serviceAccount from '../firebaseService.json' assert { type: 'json' };
+import serviceAccount from '@/firebaseService.json' assert { type: 'json' };
 
 // Load environment variables
 dotenv.config();

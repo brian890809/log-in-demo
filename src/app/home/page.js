@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import withAuth from "@/components/withAuth"
 import { Button } from "@/components/ui/button"
