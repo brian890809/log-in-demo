@@ -5,7 +5,8 @@ import {
   signOut, 
   sendEmailVerification,
   sendPasswordResetEmail
-} from '../config/firebase.js';
+} from '@/config/firebase.js';
+import Cookies from 'js-cookie';
 
 const auth = getAuth();
 
@@ -49,16 +50,19 @@ export const loginUser = (req, res) => {
     .then((userCredential) => { 
       const idToken = userCredential._tokenResponse.idToken;
       if (idToken) {
-        res.setHeader('Set-Cookie', `access_token=${idToken}; HttpOnly`);
-        res.status(200).json({ message: "User logged in successfully", userCredential });
+        Cookies.set('access_token', idToken, { expires: 1 / 24 });
+        res.setHeader('Set-Cookie', `access_token=${idToken}; HttpOnly; Path=/; Max-Age=3600`);
+        res.status(200).json({ success: true, message: "Login successful" });
+        // return { success: true, accessToken: idToken };
       } else {
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({ success: false, error: "An error occurred while logging in" });
+        // return { success: false, status: 500, errors: { message: 'An error occurred while logging in' } }
       }
     })
     .catch((error) => {
       console.error(error);
       const errorMessage = error.message || "An error occurred while logging in";
-      res.status(500).json({ error: errorMessage });
+      res.status(500).json({ success: false, error: errorMessage });
     });
 };
 
