@@ -44,13 +44,13 @@ export const SignUpForm = ({
               <Input name="password" id="password" type="password" onChange={onInputChange} value={formData.password} required />
             </div>
             <Button type="submit" className="w-full">
-              Login
+              Sign up
             </Button>
           </div>
           <div className="mt-4 text-center text-sm">
             Already have an account?{" "}
             <a href="/" className="underline underline-offset-4">
-              Sign up
+              Login
             </a>
           </div>
         </form>

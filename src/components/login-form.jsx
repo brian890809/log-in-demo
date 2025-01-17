@@ -33,7 +33,7 @@ export const LoginForm = ({
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="m@example.com" onChange={onInputChange} value={formData.email} required />
+                <Input name="email" id="email" type="email" placeholder="m@example.com" onChange={onInputChange} value={formData.email} required />
               </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
@@ -44,7 +44,7 @@ export const LoginForm = ({
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" type="password" onChange={onInputChange} value={formData.password} required />
+                <Input name="password" id="password" type="password" onChange={onInputChange} value={formData.password} required />
               </div>
               <Button type="submit" className="w-full">
                 Login

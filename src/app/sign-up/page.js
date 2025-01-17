@@ -15,7 +15,7 @@ const Page = () => {
       }));
     };
     
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
       e.preventDefault();
       const validationErrors = {};
   
@@ -25,9 +25,24 @@ const Page = () => {
       if (!formData.password || formData.password.length < 6) validationErrors.password = 'Password must be at least 6 characters long';
   
       if (Object.keys(validationErrors).length === 0) {
-        // Submit form data here (e.g., API call)
-        console.log(formData)
-        alert('Form submitted!');
+        try {
+          const response = await fetch('/api/register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+          });
+  
+          if (!response.ok) {
+            const data = await response.json();
+            setErrors(data.errors);
+          } else {
+            alert('Form submitted!');
+          }
+        } catch (error) {
+          console.error('Error submitting form:', error);
+        }
       } else {
         setErrors(validationErrors);
       }
