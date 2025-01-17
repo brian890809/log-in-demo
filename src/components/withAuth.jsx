@@ -1,20 +1,23 @@
-'use client'
+'use client';
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Cookies from 'js-cookie';
 
 const withAuth = (WrappedComponent) => {
   return (props) => {
     const router = useRouter();
 
     useEffect(() => {
-      const accessToken = Cookies.get('access_token');
-      console.log(accessToken)
-      if (!accessToken) {
-        router.push('/login');
-      }
-    }, []);
+      const checkAuth = async () => {
+        const response = await fetch('/api/check-auth');
+        if (response.status !== 200) {
+          router.push('/login');
+        }
+      };
+
+      checkAuth();
+    }, [router]);
+
     return <WrappedComponent {...props} />;
   };
 };
